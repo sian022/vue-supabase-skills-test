@@ -88,7 +88,10 @@ const submitForm = handleSubmit(async (values) => {
 
         <FormField name="password" v-slot="{ componentField }">
             <FormItem>
-                <FormLabel for="password">Password</FormLabel>
+                <div class="flex justify-between">
+                    <FormLabel for="password">Password</FormLabel>
+                    <RouterLink to="/forgot-password" class="text-sm text-blue-500 hover:underline">Forgot Password?</RouterLink>
+                </div>
                 <FormControl>
                     <Input type="password" placeholder="Password" :disabled="isLoading" v-bind="componentField" />
                 </FormControl>
