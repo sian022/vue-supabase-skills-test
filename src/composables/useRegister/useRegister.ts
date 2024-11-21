@@ -57,7 +57,7 @@ export const useRegister = () => {
         try {
             toggleLoading();
 
-            const { error } = await authStore.registerUser(payload);
+            const { error } = await authStore.signUpWithProfile(payload);
 
             await delay(500);
 

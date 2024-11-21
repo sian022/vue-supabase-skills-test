@@ -1,37 +1,25 @@
 import { loginData } from "./login.data";
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./login.fixtures";
 
-test.describe("Playright - Login Workflows", () => {
-    test("User can login with valid credentials", async ({ page }) => {
-        await page.goto("/login");
-
-        await page.fill("input[name='email']", loginData.validUser.email);
-        await page.fill("input[name='password']", loginData.validUser.password);
-
-        await page.click("button[type='submit']");
-
+test.describe("Playwright - Login Workflows", () => {
+    test("User can login with valid credentials", async ({ page, loginPage }) => {
+        await loginPage.goto();
+        await loginPage.login(loginData.validUser.email, loginData.validUser.password);
         await expect(page).toHaveURL("/dashboard");
     });
 
-    test("User cannot login with invalid credentials", async ({ page }) => {
-        await page.goto("/login");
-
-        await page.fill("input[name='email']", loginData.invalidUser.email);
-        await page.fill("input[name='password']", loginData.invalidUser.password);
-
-        await page.click("button[type='submit']");
-
-        const toast = page.locator("[description='Invalid login credentials']");
+    test("User cannot login with invalid credentials", async ({ loginPage }) => {
+        await loginPage.goto();
+        await loginPage.login(loginData.invalidUser.email, loginData.invalidUser.password);
+        const toast = await loginPage.getInvalidCredentialsToast();
         await expect(toast).toBeVisible();
     });
 
-    test("Empty email and password fields should show validation errors", async ({ page }) => {
-        await page.goto("/login");
-
-        await page.click("button[type='submit']");
-
-        const emailError = page.getByRole("alert").getByText("Email address is required");
-        const passwordError = page.getByRole("alert").getByText("Password is required");
+    test("Empty email and password fields should show validation errors", async ({ loginPage }) => {
+        await loginPage.goto();
+        await loginPage.login("", "");
+        const emailError = await loginPage.getEmailError();
+        const passwordError = await loginPage.getPasswordError();
 
         await expect(emailError).toBeVisible();
         await expect(passwordError).toBeVisible();

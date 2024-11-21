@@ -36,6 +36,15 @@ export default [
                 },
                 component: () => import("@/views/auth/register/RegisterPage.vue"),
             },
+            {
+                path: "/forgot-password",
+                name: "auth.forgot-password",
+                meta: {
+                    auth: "block",
+                    title: () => "Forgot Password",
+                },
+                component: () => import("@/views/auth/forgot-password/ForgotPasswordPage.vue"),
+            },
         ],
     },
 ];

@@ -16,7 +16,7 @@ export const useLogin = () => {
 
     const formSchema = toTypedSchema(
         z.object({
-            email: z.string().email("Email address is invalid").min(1, "Email address is required"),
+            email: z.string().min(1, "Email address is required").email("Email address is invalid"),
             password: z.string().min(1, "Password is required"),
         }),
     );

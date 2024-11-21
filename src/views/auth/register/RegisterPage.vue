@@ -16,7 +16,7 @@ const { isLoading, submitForm } = useRegister();
             <p class="text-sm text-gray-400">Enter your credentials below to proceed.</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 lg:grid-cols-2">
             <FormField name="firstName" v-slot="{ componentField }">
                 <FormItem>
                     <FormLabel for="firstName">First Name</FormLabel>
@@ -59,7 +59,7 @@ const { isLoading, submitForm } = useRegister();
             </FormItem>
         </FormField>
 
-        <Button type="submit" id="sign-in" name="sign-in" :disabled="isLoading">
+        <Button type="submit" id="sign-up" name="sign-up" :disabled="isLoading">
             <Loader class="mr-1 h-4 w-4 animate-spin" v-if="isLoading" />
             Sign Up
         </Button>

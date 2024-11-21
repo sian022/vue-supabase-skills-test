@@ -88,23 +88,24 @@ export const useAuthStore = defineStore("auth", () => {
 
     // Added createProfile() function to create a profile for the user.
     const createProfile = async (userId: string, email: string, firstName: string, lastName: string) => {
-        const { data, error } = await supabase.from("profiles").insert([
-            {
-                id: userId,
-                email,
-                first_name: firstName,
-                last_name: lastName,
-            },
-        ]);
-
-        if (error) {
-            console.error("createProfile():", error);
-        }
+        const { data, error } = await supabase
+            .from("profiles")
+            .insert([
+                {
+                    id: userId,
+                    email,
+                    first_name: firstName,
+                    last_name: lastName,
+                },
+            ])
+            .select()
+            .single();
 
         return { data, error };
     };
 
-    const registerUser = async ({
+    // CHANGE: Added registerUser() function to handle user registration + profile creation
+    const signUpWithProfile = async ({
         email,
         password,
         firstName,
@@ -115,29 +116,34 @@ export const useAuthStore = defineStore("auth", () => {
         firstName: string;
         lastName: string;
     }) => {
-        const { data: userData, error: signUpError } = await signUp({
-            email,
-            password,
-        });
+        // Step 1: Sign up the user
+        const { data: userData, error: signUpError } = await signUp({ email, password });
 
-        if (signUpError) {
-            console.error("registerUser() - Sign up error:", signUpError);
-            return { data: null, error: signUpError };
+        if (signUpError || !userData?.user) {
+            return {
+                data: null,
+                error: signUpError || new Error("User signup failed"),
+            };
         }
 
-        const { data: profileData, error: profileError } = await createProfile(
-            userData?.user?.id as string,
-            email,
-            firstName,
-            lastName,
-        );
+        // Step 2: Create a profile for the user
+        const { data: profileData, error: profileError } = await createProfile(userData.user.id, email, firstName, lastName);
 
-        if (profileError) {
-            console.error("registerUser() - Profile creation error:", profileError);
-            return { data: null, error: profileError };
+        if (profileError || !profileData) {
+            return {
+                data: null,
+                error: profileError || new Error("Profile creation failed"),
+            };
         }
 
-        return { data: { ...userData, ...profileData }, error: null };
+        // Return both user and profile data
+        return {
+            data: {
+                ...userData.user,
+                ...profileData,
+            },
+            error: null,
+        };
     };
 
     return {
@@ -152,7 +158,6 @@ export const useAuthStore = defineStore("auth", () => {
         fetchProfile,
         signInWithPassword,
         signOut,
-        signUp,
-        registerUser,
+        signUpWithProfile,
     };
 });

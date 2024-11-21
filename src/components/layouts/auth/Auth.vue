@@ -28,7 +28,7 @@ const props = defineProps<{
         <div class="flex flex-1 flex-col justify-center bg-white px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div class="mx-auto w-full max-w-sm lg:w-96">
                 <div class="mb-6">
-                    <RouterLink :to="{ path: '/' }" variant="link">
+                    <RouterLink :to="{ path: '/' }" variant="link" data-testid="logo-link">
                         <img class="h-10 w-auto" src="./../../../assets/images/logo.svg" />
                     </RouterLink>
                 </div>
