@@ -26,6 +26,7 @@ export const useLogin = () => {
         initialValues: { email: "", password: "" },
     });
 
+    // Use try catch block to handle even unexpected errors
     const submitForm = handleSubmit(async (values) => {
         try {
             toggleLoading();

@@ -53,6 +53,7 @@ export const useRegister = () => {
         },
     });
 
+    // Use try catch block to handle even unexpected errors
     const submitForm = handleSubmit(async (payload: any) => {
         try {
             toggleLoading();

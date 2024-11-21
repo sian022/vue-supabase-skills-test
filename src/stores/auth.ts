@@ -155,6 +155,7 @@ export const useAuthStore = defineStore("auth", () => {
         getUser,
 
         // Actions
+        // CHANGE: Removed signUp() function as we only want to expose signUpWithProfile()
         fetchProfile,
         signInWithPassword,
         signOut,
