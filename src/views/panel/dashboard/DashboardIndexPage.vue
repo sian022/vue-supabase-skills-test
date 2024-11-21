@@ -2,17 +2,20 @@
 import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
+
+// CHANGE: Centralize in one single getter
+const userProfile = authStore.getProfile();
 </script>
 
 <template>
     <div class="flex flex-col space-y-2 p-12">
         <h1 class="text-2xl font-semibold tracking-tight">
-            {{ authStore.getProfile().first_name }}
-            {{ authStore.getProfile().last_name }}
+            {{ userProfile.first_name }}
+            {{ userProfile.last_name }}
         </h1>
 
         <p class="text-sm text-gray-400">
-            {{ authStore.getProfile().email }}
+            {{ userProfile.email }}
         </p>
     </div>
 </template>
