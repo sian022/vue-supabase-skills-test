@@ -24,4 +24,16 @@ test.describe("Playright - Login Workflows", () => {
         const toast = page.locator("[description='Invalid login credentials']");
         await expect(toast).toBeVisible();
     });
+
+    test("Empty email and password fields should show validation errors", async ({ page }) => {
+        await page.goto("/login");
+
+        await page.click("button[type='submit']");
+
+        const emailError = page.getByRole("alert").getByText("Email address is required");
+        const passwordError = page.getByRole("alert").getByText("Password is required");
+
+        await expect(emailError).toBeVisible();
+        await expect(passwordError).toBeVisible();
+    });
 });
