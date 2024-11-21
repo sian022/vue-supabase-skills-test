@@ -116,6 +116,9 @@ export const useAuthStore = defineStore("auth", () => {
         firstName: string;
         lastName: string;
     }) => {
+        // NOTE: Use database transaction to ensure both user and profile are created successfully
+        // We can use supabase.rpc() to call a stored procedure that creates both user and profile in a single transaction
+
         // Step 1: Sign up the user
         const { data: userData, error: signUpError } = await signUp({ email, password });
 
