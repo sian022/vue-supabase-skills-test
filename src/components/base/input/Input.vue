@@ -52,6 +52,7 @@ const togglePasswordVisibility = () => {
         <!-- CHANGE: Added password visibility toggle button -->
         <button
             v-if="props.type === 'password'"
+            tabindex="-1"
             type="button"
             @click="togglePasswordVisibility"
             class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
