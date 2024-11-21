@@ -1,7 +1,7 @@
 import { useLoading } from "./useLoading";
 import { describe, expect, it } from "vitest";
 
-describe("useLoading", () => {
+describe("Vitest - 'useLoading' composable", () => {
     it("should initialize isLoading to false", () => {
         const { isLoading } = useLoading();
         expect(isLoading.value).toBe(false);
