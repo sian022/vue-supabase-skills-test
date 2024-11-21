@@ -1,12 +1,12 @@
-import { loginFixtures } from "./login.fixtures";
+import { loginData } from "./login.data";
 import { expect, test } from "@playwright/test";
 
 test.describe("Playright - Login Workflows", () => {
     test("User can login with valid credentials", async ({ page }) => {
         await page.goto("/login");
 
-        await page.fill("input[name='email']", loginFixtures.validUser.email);
-        await page.fill("input[name='password']", loginFixtures.validUser.password);
+        await page.fill("input[name='email']", loginData.validUser.email);
+        await page.fill("input[name='password']", loginData.validUser.password);
 
         await page.click("button[type='submit']");
 
@@ -16,8 +16,8 @@ test.describe("Playright - Login Workflows", () => {
     test("User cannot login with invalid credentials", async ({ page }) => {
         await page.goto("/login");
 
-        await page.fill("input[name='email']", loginFixtures.invalidUser.email);
-        await page.fill("input[name='password']", loginFixtures.invalidUser.password);
+        await page.fill("input[name='email']", loginData.invalidUser.email);
+        await page.fill("input[name='password']", loginData.invalidUser.password);
 
         await page.click("button[type='submit']");
 

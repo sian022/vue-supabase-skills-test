@@ -21,7 +21,7 @@ export default [
             {
                 path: "/logout",
                 name: "auth.logout",
-                component: () => import("@/views/auth/LogoutPage.vue"),
+                component: () => import("@/views/auth/logout/LogoutPage.vue"),
                 meta: {
                     auth: true,
                     title: () => "Logout",
@@ -34,7 +34,7 @@ export default [
                     auth: "block",
                     title: () => "Register",
                 },
-                component: () => import("@/views/auth/RegisterPage.vue"),
+                component: () => import("@/views/auth/register/RegisterPage.vue"),
             },
         ],
     },

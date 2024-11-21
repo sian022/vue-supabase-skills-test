@@ -2,83 +2,11 @@
 import { Button } from "@/components/base/button";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/base/form";
 import { Input } from "@/components/base/input";
-import { useToast } from "@/components/base/toast/use-toast";
 import { Loader } from "lucide-vue-next";
 
-import { useLoading } from "@/composables/useLoading";
-import { delay, getErrorMessage } from "@/lib/utils";
-import { useAuthStore } from "@/stores/auth";
-import { toTypedSchema } from "@vee-validate/zod";
-import { useForm } from "vee-validate";
-import { useRouter } from "vue-router";
-import * as z from "zod";
+import { useRegister } from "@/composables";
 
-const authStore = useAuthStore();
-const router = useRouter();
-const { toast } = useToast();
-// CHANGE: Created reusable loading composable
-const { isLoading, toggleLoading } = useLoading();
-
-// CHANGE: Added zod validation for form
-const formSchema = toTypedSchema(
-    z.object({
-        firstName: z.string().min(1, {
-            message: "First Name is required",
-        }),
-        lastName: z.string().min(1, {
-            message: "Last Name is required",
-        }),
-        email: z
-            .string()
-            .min(1, {
-                message: "Email address is required",
-            })
-            .email({
-                message: "Email address is invalid",
-            }),
-        password: z
-            .string()
-            .min(1, {
-                message: "Password is required",
-            })
-            .min(6, {
-                message: "Password must be at least 6 characters",
-            }),
-    }),
-);
-
-const { handleSubmit } = useForm({
-    validationSchema: formSchema,
-    initialValues: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-    },
-});
-
-// CHANGE: Made the form to use try catch to handle errors especially unexpected ones
-const submitForm = handleSubmit(async (payload: any) => {
-    try {
-        toggleLoading();
-
-        const { error } = await authStore.registerUser(payload);
-
-        // CHANGE: Created reusable delay function
-        await delay(500);
-
-        if (error) throw error;
-
-        router.push({ name: "panel.dashboard" });
-        toast({ description: "Welcome Back!" });
-    } catch (error: any) {
-        // CHANGE: Created a reusable function to get error message
-        console.error(error);
-        toast({ description: getErrorMessage(error) });
-    } finally {
-        toggleLoading();
-    }
-});
+const { isLoading, submitForm } = useRegister();
 </script>
 
 <template>

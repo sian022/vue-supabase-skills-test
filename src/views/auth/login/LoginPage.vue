@@ -2,70 +2,13 @@
 import { Button } from "@/components/base/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/base/form";
 import { Input } from "@/components/base/input";
-import { useToast } from "@/components/base/toast/use-toast";
 import { Loader } from "lucide-vue-next";
 
-import { useLoading } from "@/composables/useLoading";
-import { delay, getErrorMessage } from "@/lib/utils";
-import { useAuthStore } from "@/stores/auth";
-import { toTypedSchema } from "@vee-validate/zod";
-import { useForm } from "vee-validate";
-import { useRouter } from "vue-router";
-import * as z from "zod";
+import { useLogin } from "@/composables";
+import { RouterLink } from "vue-router";
 
-const authStore = useAuthStore();
-const router = useRouter();
-const { toast } = useToast();
-// CHANGE: Created reusable loading composable
-const { isLoading, toggleLoading } = useLoading();
-
-// CHANGE: Added zod validation for form
-const formSchema = toTypedSchema(
-    z.object({
-        email: z
-            .string()
-            .min(1, {
-                message: "Email address is required",
-            })
-            .email({
-                message: "Email address is invalid",
-            }),
-        password: z.string().min(1, {
-            message: "Password is required",
-        }),
-    }),
-);
-
-const { handleSubmit } = useForm({
-    validationSchema: formSchema,
-    initialValues: {
-        email: "",
-        password: "",
-    },
-});
-
-// CHANGE: Made the form to use try catch to handle errors especially unexpected ones
-const submitForm = handleSubmit(async (values) => {
-    try {
-        toggleLoading();
-
-        const { error } = await authStore.signInWithPassword(values);
-
-        // CHANGE: Created reusable delay function
-        await delay(500);
-
-        if (error) throw error;
-
-        router.push({ name: "panel.dashboard" });
-        toast({ description: "Welcome Back!" });
-    } catch (error: any) {
-        // CHANGE: Created a reusable function to get error message
-        console.error(error);
-        toast({ description: getErrorMessage(error) });
-    } finally {
-        toggleLoading();
-    }
-});
+// CHANGE: Separated the login logic into a composable
+const { submitForm, isLoading } = useLogin();
 </script>
 
 <template>
@@ -90,9 +33,7 @@ const submitForm = handleSubmit(async (values) => {
             <FormItem>
                 <div class="flex justify-between">
                     <FormLabel for="password">Password</FormLabel>
-                    <RouterLink tabindex="-1" to="/forgot-password" class="text-sm text-blue-500 hover:underline">
-                        Forgot Password?
-                    </RouterLink>
+                    <RouterLink tabindex="-1" to="/forgot-password" class="text-sm text-blue-500 hover:underline"> Forgot Password? </RouterLink>
                 </div>
                 <FormControl>
                     <Input type="password" placeholder="Password" name="password" :disabled="isLoading" v-bind="componentField" />
