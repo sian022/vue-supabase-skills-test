@@ -67,3 +67,14 @@ This document outlines the changes made during the Vue Supabase Skills Test.
 ## Conclusion
 
 The changes made address the key goals outlined in the task, with improvements to both functionality and maintainability. Testing coverage has been added where appropriate to ensure the application is stable and works as expected.
+
+## Time Spent
+
+-   **Total Hours Spent**: ~9 hours  
+    _Breakdown_:
+    -   Registration Page: ~2 hours
+    -   Password Visibility Icon: ~15 minutes
+    -   Code Improvements and Reusables: ~2 hours
+    -   Testing (E2E, Unit Tests): ~2 hours
+    -   UI/UX Improvements: ~2 hours
+    -   Miscellaneous (Debugging, Documentation, etc.): ~45 minutes
