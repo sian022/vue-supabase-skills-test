@@ -80,7 +80,7 @@ const submitForm = handleSubmit(async (values) => {
                 <FormLabel for="email">Email Address</FormLabel>
 
                 <FormControl>
-                    <Input type="email" placeholder="Email Address" :disabled="isLoading" v-bind="componentField" />
+                    <Input type="email" placeholder="Email Address" name="email" :disabled="isLoading" v-bind="componentField" />
                 </FormControl>
                 <FormMessage />
             </FormItem>
@@ -93,7 +93,7 @@ const submitForm = handleSubmit(async (values) => {
                     <RouterLink to="/forgot-password" class="text-sm text-blue-500 hover:underline">Forgot Password?</RouterLink>
                 </div>
                 <FormControl>
-                    <Input type="password" placeholder="Password" :disabled="isLoading" v-bind="componentField" />
+                    <Input type="password" placeholder="Password" name="password" :disabled="isLoading" v-bind="componentField" />
                 </FormControl>
                 <FormMessage />
             </FormItem>
