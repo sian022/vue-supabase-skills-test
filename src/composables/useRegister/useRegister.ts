@@ -65,7 +65,10 @@ export const useRegister = () => {
             if (error) throw error;
 
             router.push({ name: "panel.dashboard" });
-            toast({ description: "Welcome Back!" });
+            toast({
+                title: "Welcome to your new account!",
+                description: "You're all set up and ready to go.",
+            });
         } catch (error: any) {
             console.error(error);
             // CHANGE: Made toast destructive to indicate an error
