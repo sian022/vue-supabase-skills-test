@@ -27,7 +27,7 @@ export const useForgotPassword = () => {
 
         await delay(500);
 
-        toast({ description: "Password reset link sent to your email" });
+        toast({ title: "Password Reset Link Sent", description: "Check your email for the password reset link" });
         toggleLoading();
     });
 
