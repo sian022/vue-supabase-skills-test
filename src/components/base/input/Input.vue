@@ -50,6 +50,7 @@ const togglePasswordVisibility = () => {
         />
 
         <!-- CHANGE: Added password visibility toggle button -->
+
         <button
             v-if="props.type === 'password'"
             tabindex="-1"

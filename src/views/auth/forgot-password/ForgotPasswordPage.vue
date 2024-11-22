@@ -14,7 +14,7 @@ const { isLoading, submitForm } = useForgotPassword();
     <form class="space-y-6" @submit="submitForm">
         <div class="flex flex-col space-y-2">
             <h1 class="text-2xl font-semibold tracking-tight">Reset Your Password</h1>
-            <p class="text-sm text-gray-400">Enter your email address to receive a password reset code.</p>
+            <p class="text-sm text-gray-500">Enter your email address to receive a password reset code.</p>
         </div>
 
         <FormField name="email" v-slot="{ componentField }">
@@ -34,7 +34,7 @@ const { isLoading, submitForm } = useForgotPassword();
         </Button>
 
         <div class="flex gap-1">
-            <p class="text-sm text-gray-400">Remembered your password?</p>
+            <p class="text-sm text-gray-500">Remembered your password?</p>
             <RouterLink to="/login" class="text-sm text-blue-500 hover:underline">Sign in</RouterLink>
         </div>
     </form>

@@ -37,10 +37,14 @@ export const useLogin = () => {
             if (error) throw error;
 
             router.push({ name: "panel.dashboard" });
-            toast({ description: "Welcome Back!" });
+            toast({
+                title: "Login Successful",
+                description: "Welcome back! You're now signed in.",
+            });
         } catch (error: any) {
+            // CHANGE: Made toast destructive for error messages
             console.error(error);
-            toast({ description: getErrorMessage(error) });
+            toast({ title: "Unable to sign in", description: getErrorMessage(error), variant: "destructive" });
         } finally {
             toggleLoading();
         }

@@ -16,7 +16,9 @@ setTimeout(async () => {
 <template>
     <div class="flex flex-col space-y-2">
         <h1 class="text-2xl font-semibold tracking-tight">Sign Out</h1>
-        <p class="text-sm text-gray-400">Please wait while we process your request.</p>
+        <!-- CHANGE: Made description color contrast more readable -->
+        <!-- CHANGE: Made the description describe what's happening -->
+        <p class="text-sm text-gray-500">Signing you out, please wait a moment...</p>
 
         <div class="py-2">
             <Loader class="h-4 w-4 animate-spin" />

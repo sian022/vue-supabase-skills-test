@@ -68,7 +68,10 @@ export const useRegister = () => {
             toast({ description: "Welcome Back!" });
         } catch (error: any) {
             console.error(error);
-            toast({ description: getErrorMessage(error) });
+            // CHANGE: Made toast destructive to indicate an error
+            // NOTE: Should have a more descriptive error message than "User already registered"
+            // Better to specify what went wrong like "Can't register user with this email"
+            toast({ title: "Unable to signup", description: getErrorMessage(error), variant: "destructive" });
         } finally {
             toggleLoading();
         }
